@@ -1,13 +1,16 @@
+require('dotenv').config()
 const { DisconnectReason, useMultiFileAuthState } = require('baileys');
 const makeWASocket = require('baileys').default;
 
 const mysql = require('mysql');
+const http = require('http')
+const port = process.env.PORT || 3001
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'botwa'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 });
 
 const dbQuery = (sqlQuery) => {
@@ -343,5 +346,19 @@ Apakah semua data diatas sudah benar ? (Ya/Tidak)`;
 
     });
 };
+
+const server = http.createServer((req,res) => {
+    if(req.url == '/hello') {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end('Hello world')
+    }else{
+        res.writeHead(200,{'Content-Type': 'application/json'})
+        res.end('OK')
+    }
+})
+
+server.listen(port,() => {
+    console.log(`this app is running on ${port}`)
+})
 
 startSock();
