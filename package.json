@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --ignore auth/ index.js",
     "clean-auth-lw": "rm -rf auth/* && echo authentikasi dan hubungan ke wa telah direset",
-    "clean-auth": "del /S /Q auth\\* && echo authentikasi dan hubungan ke wa telah direset"
+    "clean-auth": "del /S /Q auth\\* && echo authentikasi dan hubungan ke wa telah direset",
+    "init": "npm install -g pm2",
+    "production": "pm2 start index.js --name wabot"
   },
   "author": "botwa",
   "license": "ISC",
